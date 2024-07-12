@@ -19,3 +19,17 @@ autocmd('LspAttach', {
         vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
     end
 })
+
+vim.api.nvim_create_augroup("AutoFormat", {})
+
+autocmd(
+    "BufWritePost",
+    {
+        pattern = "*.{js,jsx,ts,tsx,mjs,cjs,json}",
+        group = "AutoFormat",
+        callback = function()
+            vim.cmd("silent !pnpm prettier % --write")
+            vim.cmd("edit")
+        end,
+    }
+)
