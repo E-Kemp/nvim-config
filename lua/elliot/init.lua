@@ -28,7 +28,7 @@ autocmd(
         pattern = "*.{js,jsx,ts,tsx,mjs,cjs,json}",
         group = "AutoFormat",
         callback = function()
-            vim.cmd("silent !pnpm prettier % --write")
+            vim.cmd("silent !npx prettier % --write")
             vim.cmd("edit")
         end,
     }
