@@ -1,3 +1,4 @@
+-- This plugin is for the bottom status line
 return {
     "nvim-lualine/lualine.nvim",
     dependencies = {
@@ -12,8 +13,23 @@ return {
                 options = {
                     theme = andromeda_ll.theme,
                 },
-                sections = andromeda_ll.sections,
-                inactive_sections = andromeda_ll.inactive_sections,
+                sections = {
+                    lualine_b = {
+                        {
+                            "branch",
+                            fmt = function(str)
+                                if string.len(str) > 18 then
+                                    return str:sub(1, 14) .. "~..."
+                                else
+                                    return str
+                                end
+                            end
+
+                        },
+                        "diff",
+                        "diagnostics"
+                    },
+                },
             }
         )
     end

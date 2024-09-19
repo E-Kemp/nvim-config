@@ -11,6 +11,7 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
+        "themaxmarchuk/tailwindcss-colors.nvim",
     },
 
     config = function()
@@ -28,11 +29,13 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "rust_analyzer",
+                "eslint",
+                "ts_ls",
+                "tailwindcss",
                 "gopls",
             },
             handlers = {
                 function(server_name) -- default handler (optional)
-
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
@@ -44,7 +47,7 @@ return {
                         capabilities = capabilities,
                         settings = {
                             Lua = {
-				    runtime = { version = "Lua 5.1" },
+                                runtime = { version = "Lua 5.1" },
                                 diagnostics = {
                                     globals = { "vim", "it", "describe", "before_each", "after_each" },
                                 }
@@ -52,6 +55,16 @@ return {
                         }
                     }
                 end,
+
+                ["tailwindcss"] = function()
+                    local lspconfig = require("lspconfig")
+                    lspconfig.tailwindcss.setup {
+                        capabilities = capabilities,
+                        on_attach = function(_, bufnr)
+                            require("tailwindcss-colors").buf_attach(bufnr)
+                        end
+                    }
+                end
             }
         })
 
