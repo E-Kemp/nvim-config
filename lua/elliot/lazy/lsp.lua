@@ -30,7 +30,6 @@ return {
                 "lua_ls",
                 "rust_analyzer",
                 "eslint",
-                "ts_ls",
                 "tailwindcss",
                 "gopls",
             },
